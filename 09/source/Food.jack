@@ -1,0 +1,66 @@
+/*
+  Creates a food.
+  Accepts int x, and int y for food position
+*/
+class Food {
+  field int _xPos, _yPos;
+  field int _size;
+
+  constructor Food new(int x, int y) {
+    let _xPos = x;
+    let _yPos = y;
+    let _size = 20;
+    return this;
+  }
+
+  method void dispose() {
+    do Memory.deAlloc(this);
+    return;
+   }
+
+  // draws food into canvas
+  method void draw() {
+    do Screen.setColor(true);
+    do Screen.drawRectangle(_xPos, _yPos, _xPos + _size, _yPos + _size);
+    return;
+  }
+
+  // remove food into canvas
+  method void undraw() {
+    do Screen.setColor(false);
+    do Screen.drawRectangle(_xPos, _yPos, _xPos + _size, _yPos + _size);
+    return;
+  }
+
+  // setter for x coordinate
+  method void newXPos(int x) {
+    let _xPos = x;
+    return;
+  }
+
+  // setter for y coordinate
+  method void newYPos(int y) {
+    let _yPos = y;
+    return;
+  }
+
+  // getter for x coordinate
+  method int xPos() {
+    return _xPos;
+  }
+
+  // getter for y coordinate
+  method int yPos() {
+    return _yPos;
+  }
+
+  // getter for width 
+  method int width() {
+    return _xPos + _size;
+  }
+
+  // getter for height 
+  method int height() {
+    return _yPos + _size;
+  }
+}

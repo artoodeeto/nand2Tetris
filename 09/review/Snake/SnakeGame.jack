@@ -1,0 +1,232 @@
+/**
+ * This class Implements the logic of The Snake Game.
+ */
+class SnakeGame {
+
+	field Snake snake;
+	field int level;
+	field boolean levelUpdated;
+	
+	/**
+	 * Constructs and returns a new SnakeGame object.
+	 */
+	constructor SnakeGame new() {
+		do init();
+		do Screen.drawLine(7, 7, 504, 7);
+		do Screen.drawLine(7, 7, 7, 241);
+		do Screen.drawLine(7, 241, 504, 241);
+		do Screen.drawLine(504, 241, 504, 7);
+		let level = 0;
+		let levelUpdated = true;
+		do printStatus();
+		let snake = Snake.new();
+		return this;
+	}
+
+	/**
+	 * The purpose of this method is to get a random
+	 *  value to use as a seed for the Random class.
+	 */
+	method void init() {
+		var String s;
+		var char key;
+		var int seed;
+		var boolean exit;
+
+		let s = "Hello World, This is Snake!";
+		do Output.moveCursor(11, 18);
+		do Output.printString(s);
+		do s.dispose();
+
+		let s = "press Enter to Play";
+		do Output.moveCursor(12, 23);
+		do Output.printString(s);
+		do s.dispose();
+
+		let seed = 1;
+		let exit = false;
+		while (~exit) {
+			let key = Keyboard.keyPressed();
+			let seed = seed + 1;
+			if (seed > 32749) {
+				let seed = MathUtils.mod(seed, 32749);
+			}
+			if (key = 128) {
+				let exit = true;
+			}
+		}
+		do Random.seed(seed);
+		do Screen.clearScreen();
+		return;
+	}
+
+	/**
+	 * Prints the status of the game.
+	 */
+	method void printStatus() {
+		var String s;
+		let s = "Snake Game.";
+		do Output.moveCursor(22, 4);
+		do Output.printString(s);
+		do s.dispose();
+
+		let s = "Level:";
+		do Output.moveCursor(22, 19);
+		do Output.printString(s);
+		do s.dispose();
+
+		let s = "Apples: ";
+		do Output.moveCursor(22, 31);
+		do Output.printString(s);
+		do s.dispose();
+
+		let s = "q: quit";
+		do Output.moveCursor(22, 44);
+		do Output.printString(s);
+		do s.dispose();
+
+		return;
+	}
+
+	/**
+	 * Updates the status of the game.
+	 */
+	method void updateStatus() {
+		var int apples;
+		var int mod;
+
+		let apples = snake.getApplesCount();
+		let mod = MathUtils.mod(apples, 5);
+		if ((apples > 0) & (mod = 0) & (~levelUpdated)) {
+			let level = level + 1;
+			do snake.setIncLength();
+			let levelUpdated = true;
+		}
+		if ((apples > 0) & (mod = 1) & levelUpdated) {
+			let levelUpdated = false;
+		}
+		do Output.moveCursor(22, 25);
+		do Output.printInt(level);
+
+		do Output.moveCursor(22, 38);
+		do Output.printInt(apples);
+		return;
+	}
+
+	/**
+	 * Disposes this object.
+	 */
+	method void dispose() {
+		do Memory.deAlloc(this);
+		do snake.dispose();
+		return;
+	}
+
+	/**
+	 * This method implements the logic of the game.
+	 */
+	method void play() {
+		var char key;
+		var int direction, curDir;
+		var boolean exit, gameOver, gameWin;
+
+		let exit = false;
+		let gameOver = false;
+		let gameWin = false;
+		do Apple.init(10, 4);
+		while ((~exit)&(~gameOver)&(~gameWin)) {
+			do updateStatus();
+			let key = Keyboard.keyPressed();
+			let curDir = snake.getDirection();
+			if (key = 81) { let exit = true; } // q key
+			if (key = 132) { let direction = 1; } // Right arrow
+			if (key = 133) { let direction = 2; } // Down arrow
+			if (key = 130) { let direction = 3; } // Left arrow
+			if (key = 131) { let direction = 4; } // Up arrow
+			if (key = 0) { let direction = curDir; }
+
+			if (~(((curDir = 1)&((direction = 4)|(direction = 2)))|
+			      ((curDir = 2)&((direction = 1)|(direction = 3)))|
+				  ((curDir = 3)&((direction = 2)|(direction = 4)))|
+				  ((curDir = 4)&((direction = 3)|(direction = 1))))) {
+				let direction = curDir;
+			}
+
+			if (~snake.step(direction)) {
+				let gameOver = true;
+			}
+			if (level = 10) {
+				let gameWin = true;
+			}
+			do Sys.wait(150);
+		} // while
+		if (gameOver) {
+			do gameOver();
+		}
+		if (gameWin) {
+			do gameWin();
+		}
+		return;
+	}
+
+
+	/**
+	 * This method prints an end messages and returns
+	 *  when the user presses q key.
+	 */
+	method void gameOver() {
+		var String s;
+		var char key;
+		var boolean exit;
+
+		let s = "Game Over!";
+		do Output.moveCursor(11, 26);
+		do Output.printString(s);
+		do s.dispose();
+
+		let s = "q: quit";
+		do Output.moveCursor(12, 28);
+		do Output.printString(s);
+		do s.dispose();
+
+		let exit = false;
+		while (~exit) {
+			let key = Keyboard.keyPressed(); 
+			if (key = 81) { // q key
+				let exit = true;
+			}
+		}
+		return;
+	}
+
+	/**
+	 * This method prints and end messages and returns
+	 *  when the user presses q key.
+	 */
+	method void gameWin() {
+		var String s;
+		var char key;
+		var boolean exit;
+
+		let s = "Congratulations!";
+		do Output.moveCursor(11, 23);
+		do Output.printString(s);
+		do s.dispose();
+
+		let s = "q: quit";
+		do Output.moveCursor(12, 28);
+		do Output.printString(s);
+		do s.dispose();
+
+		let exit = false;
+		while (~exit) {
+			let key = Keyboard.keyPressed(); 
+			if (key = 81) { // q key
+				let exit = true;
+			}
+		}
+		return;
+	}
+
+}
+

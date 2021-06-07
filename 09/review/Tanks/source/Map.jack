@@ -1,0 +1,48 @@
+class Map{
+    field int x;
+    field int y;
+
+    field int r;
+
+    field int w, h;
+
+    constructor Map new(int Ax, int Ay, int Ar){
+        let x = Ax;
+        let y = Ay;
+
+        let r = Ar;
+
+        let w = (r - x + 1) / 10;
+        let h = (255 - y + 1) / 10; 
+
+        do Output.printInt(h);
+
+        return this;
+    }
+
+
+    method int getY(){
+        return y;
+    }
+
+    method int getX(){
+        return x;
+    }
+
+    method int getW(){
+        return w;
+    }
+
+    method int getH(){
+        return h;
+    }
+
+    method void render(){
+        do Screen.drawRectangle(0, y - 4, 511, y - 1);
+        do Screen.drawRectangle(0, y - 4, x - 1, 255);
+        do Screen.drawRectangle(r + 1, y - 4, 511, 255);
+
+
+        return;
+    }
+}

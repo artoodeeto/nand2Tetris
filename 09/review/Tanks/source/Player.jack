@@ -1,0 +1,76 @@
+class Player{
+
+    field Tank tank;
+    field Tank enemy;
+
+    constructor Player new(Map Amap, Tank Enemy){
+        let tank = Tank.new(2, 2, Amap, Enemy);
+        let enemy = Enemy;
+        return this;
+    }
+
+    method void renderHp(){
+        do Output.moveCursor(0, 0);
+
+        if (enemy.getIsDead() = true){
+
+            do Output.printString("You WIN!");
+
+            return;
+        }
+
+
+        if (tank.getIsDead() = true){
+
+            do Output.printString("You LOSE!");
+
+            return;
+        }
+
+
+        
+        do Output.printString("Your HP ");
+        do Output.printInt(tank.getHp());
+
+        do Output.printString(" ");
+        do Output.printString("Enemy HP ");
+        do Output.printInt(enemy.getHp());
+
+        return;
+    }
+
+    method void render(){
+        do tank.render();
+        do renderHp();
+
+        return;
+    }
+
+    method void move(int dir){
+        do tank.move(dir);
+
+        return;
+    }
+
+    method void simulateBullet(){
+        do tank.simulateBullet();
+
+        return;
+    }
+
+    method void renderBullet(){
+        do tank.renderBullet();
+
+        return;
+    }
+
+    method void fire(){
+        do tank.fire();
+
+        return;
+    }
+
+    method Tank getTank(){
+        return tank;
+    }
+}

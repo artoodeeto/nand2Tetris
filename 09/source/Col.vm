@@ -1,0 +1,55 @@
+function Col.new 0
+push constant 2
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+pop this 0
+push argument 1
+pop this 1
+push pointer 0
+return
+function Col.dispose 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return
+function Col.has_collided 0
+push argument 0
+pop pointer 0
+push this 1
+call Food.xPos 1
+push this 0
+call Snake.width 1
+lt
+push this 1
+call Food.width 1
+push this 0
+call Snake.xPos 1
+gt
+and
+push this 1
+call Food.yPos 1
+push this 0
+call Snake.height 1
+lt
+and
+push this 1
+call Food.height 1
+push this 0
+call Snake.yPos 1
+gt
+and
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+not
+return
+goto IF_END0
+label IF_FALSE0
+push constant 0
+return
+label IF_END0

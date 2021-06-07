@@ -62,7 +62,6 @@ export class Parser {
   parseCommand(command: string): void {
     // strips comments
     const strippedCommand = command.trim().split("/")[0];
-    // console.log("strp", strippedCommand);
     if (strippedCommand) {
       this.#_command = strippedCommand.split(" ");
     }

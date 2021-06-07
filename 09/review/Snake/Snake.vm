@@ -1,0 +1,777 @@
+function Snake.new 0
+push constant 4
+call Memory.alloc 1
+pop pointer 0
+push constant 6
+pop this 2
+push constant 0
+pop this 1
+push constant 0
+pop this 3
+push this 2
+call Array.new 1
+pop this 0
+push constant 0
+push this 0
+add
+push constant 7
+push constant 1
+push constant 1
+push constant 1
+call SnakeHead.new 4
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 1
+push this 0
+add
+push constant 6
+push constant 1
+push constant 1
+push constant 1
+call SnakeBody.new 4
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 2
+push this 0
+add
+push constant 5
+push constant 1
+push constant 1
+push constant 1
+call SnakeBody.new 4
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 3
+push this 0
+add
+push constant 4
+push constant 1
+push constant 1
+push constant 1
+call SnakeBody.new 4
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 4
+push this 0
+add
+push constant 3
+push constant 1
+push constant 1
+push constant 1
+call SnakeBody.new 4
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 5
+push this 0
+add
+push constant 2
+push constant 1
+push constant 1
+push constant 1
+call SnakeTail.new 4
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push pointer 0
+return
+function Snake.dispose 2
+push argument 0
+pop pointer 0
+push constant 0
+pop local 0
+label WHILE_EXP0
+push local 0
+push this 2
+lt
+not
+if-goto WHILE_END0
+push local 0
+push this 0
+add
+pop pointer 1
+push that 0
+pop local 1
+push local 1
+call SnakeHead.dispose 1
+pop temp 0
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+pop this 2
+push constant 0
+pop this 1
+push this 0
+call Array.dispose 1
+pop temp 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return
+function Snake.setIncLength 0
+push argument 0
+pop pointer 0
+push constant 0
+not
+pop this 3
+push constant 0
+return
+function Snake.getApplesCount 0
+push argument 0
+pop pointer 0
+push this 1
+return
+function Snake.getDirection 1
+push argument 0
+pop pointer 0
+push constant 0
+push this 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push local 0
+call SnakeHead.getDirection 1
+return
+function Snake.getHeadX 1
+push argument 0
+pop pointer 0
+push constant 0
+push this 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push local 0
+call Snakehead.getX 1
+return
+function Snake.getHeadY 1
+push argument 0
+pop pointer 0
+push constant 0
+push this 0
+add
+pop pointer 1
+push that 0
+pop local 0
+push local 0
+call Snakehead.getY 1
+return
+function Snake.inLocation 3
+push argument 0
+pop pointer 0
+push constant 0
+pop local 0
+label WHILE_EXP0
+push local 0
+push this 2
+lt
+push local 2
+not
+and
+not
+if-goto WHILE_END0
+push local 0
+push this 0
+add
+pop pointer 1
+push that 0
+pop local 1
+push argument 1
+push local 1
+call SnakeHead.getX 1
+eq
+push argument 2
+push local 1
+call SnakeHead.getY 1
+eq
+and
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+not
+pop local 2
+label IF_FALSE0
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push local 2
+return
+function Snake.step 16
+push argument 0
+pop pointer 0
+push constant 0
+pop local 0
+push argument 1
+pop local 4
+push argument 1
+pop local 3
+push constant 0
+pop local 13
+label WHILE_EXP0
+push local 0
+push this 2
+lt
+not
+if-goto WHILE_END0
+push constant 0
+pop local 12
+push local 0
+push this 0
+add
+pop pointer 1
+push that 0
+pop local 11
+push local 11
+call SnakeHead.getX 1
+pop local 6
+push local 11
+call SnakeHead.getY 1
+pop local 7
+push local 11
+call SnakeHead.getType 1
+pop local 8
+push local 11
+call SnakeHead.getDirection 1
+pop local 9
+push local 11
+call SnakeHead.getMoveDirection 1
+pop local 10
+push local 8
+push constant 1
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 1
+pop local 5
+push constant 0
+not
+pop local 12
+label IF_FALSE0
+push local 8
+push constant 4
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 4
+pop local 5
+push constant 0
+not
+pop local 12
+label IF_FALSE1
+push local 12
+not
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push local 9
+push local 4
+eq
+push local 10
+push local 3
+eq
+not
+and
+push local 10
+push local 3
+eq
+push local 9
+push local 4
+eq
+not
+and
+or
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push local 8
+push constant 2
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push constant 3
+pop local 5
+label IF_FALSE4
+push local 8
+push constant 3
+eq
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push constant 2
+pop local 5
+label IF_FALSE5
+goto IF_END3
+label IF_FALSE3
+push local 8
+pop local 5
+label IF_END3
+label IF_FALSE2
+push local 3
+push constant 1
+eq
+push local 10
+push constant 1
+eq
+and
+push local 3
+push constant 1
+eq
+push local 10
+push constant 2
+eq
+and
+or
+push local 3
+push constant 1
+eq
+push local 10
+push constant 4
+eq
+and
+or
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+push local 6
+push constant 1
+add
+pop local 6
+label IF_FALSE6
+push local 3
+push constant 2
+eq
+push local 10
+push constant 1
+eq
+and
+push local 3
+push constant 2
+eq
+push local 10
+push constant 2
+eq
+and
+or
+push local 3
+push constant 2
+eq
+push local 10
+push constant 3
+eq
+and
+or
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+push local 7
+push constant 1
+add
+pop local 7
+label IF_FALSE7
+push local 3
+push constant 3
+eq
+push local 10
+push constant 2
+eq
+and
+push local 3
+push constant 3
+eq
+push local 10
+push constant 3
+eq
+and
+or
+push local 3
+push constant 3
+eq
+push local 10
+push constant 4
+eq
+and
+or
+if-goto IF_TRUE8
+goto IF_FALSE8
+label IF_TRUE8
+push local 6
+push constant 1
+sub
+pop local 6
+label IF_FALSE8
+push local 3
+push constant 4
+eq
+push local 10
+push constant 1
+eq
+and
+push local 3
+push constant 4
+eq
+push local 10
+push constant 3
+eq
+and
+or
+push local 3
+push constant 4
+eq
+push local 10
+push constant 4
+eq
+and
+or
+if-goto IF_TRUE9
+goto IF_FALSE9
+label IF_TRUE9
+push local 7
+push constant 1
+sub
+pop local 7
+label IF_FALSE9
+push local 0
+push constant 1
+eq
+push this 3
+and
+if-goto IF_TRUE10
+goto IF_FALSE10
+label IF_TRUE10
+push this 2
+pop this 2
+push this 2
+push constant 1
+add
+call Array.new 1
+pop local 14
+push constant 0
+push local 14
+add
+push constant 0
+push this 0
+add
+pop pointer 1
+push that 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 5
+push constant 2
+eq
+if-goto IF_TRUE11
+goto IF_FALSE11
+label IF_TRUE11
+push constant 1
+push local 14
+add
+push local 6
+push local 7
+push local 4
+push local 3
+call SnakeBody.new 4
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+label IF_FALSE11
+push local 5
+push constant 3
+eq
+if-goto IF_TRUE12
+goto IF_FALSE12
+label IF_TRUE12
+push constant 1
+push local 14
+add
+push local 6
+push local 7
+push local 4
+push local 3
+call SnakeKnee.new 4
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+label IF_FALSE12
+push constant 1
+pop local 15
+label WHILE_EXP1
+push local 15
+push this 2
+lt
+not
+if-goto WHILE_END1
+push local 15
+push constant 1
+add
+push local 14
+add
+push local 15
+push this 0
+add
+pop pointer 1
+push that 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 15
+push constant 1
+add
+pop local 15
+goto WHILE_EXP1
+label WHILE_END1
+push this 0
+call Array.dispose 1
+pop temp 0
+push this 2
+push constant 1
+add
+pop this 2
+push local 14
+pop this 0
+push constant 0
+pop this 3
+push constant 0
+not
+return
+label IF_FALSE10
+push local 5
+push constant 1
+eq
+if-goto IF_TRUE13
+goto IF_FALSE13
+label IF_TRUE13
+push pointer 0
+push local 6
+push local 7
+call Snake.checkLocation 3
+not
+if-goto IF_TRUE14
+goto IF_FALSE14
+label IF_TRUE14
+push constant 0
+return
+label IF_FALSE14
+push local 11
+call SnakeHead.dispose 1
+pop temp 0
+push local 6
+call Apple.getX 0
+eq
+push local 7
+call Apple.getY 0
+eq
+and
+if-goto IF_TRUE15
+goto IF_FALSE15
+label IF_TRUE15
+call Apple.erase 0
+pop temp 0
+push local 0
+push this 0
+add
+push local 6
+push local 7
+push local 4
+push local 3
+call SnakeHead.new 4
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push constant 0
+not
+pop local 13
+push this 1
+push constant 1
+add
+pop this 1
+goto IF_END15
+label IF_FALSE15
+push local 0
+push this 0
+add
+push local 6
+push local 7
+push local 4
+push local 3
+call SnakeHead.new 4
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+label IF_END15
+label IF_FALSE13
+push local 5
+push constant 2
+eq
+if-goto IF_TRUE16
+goto IF_FALSE16
+label IF_TRUE16
+push local 11
+call SnakeHead.dispose 1
+pop temp 0
+push local 0
+push this 0
+add
+push local 6
+push local 7
+push local 4
+push local 3
+call SnakeBody.new 4
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+label IF_FALSE16
+push local 5
+push constant 3
+eq
+if-goto IF_TRUE17
+goto IF_FALSE17
+label IF_TRUE17
+push local 11
+call SnakeHead.dispose 1
+pop temp 0
+push local 0
+push this 0
+add
+push local 6
+push local 7
+push local 4
+push local 3
+call SnakeKnee.new 4
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+label IF_FALSE17
+push local 5
+push constant 4
+eq
+if-goto IF_TRUE18
+goto IF_FALSE18
+label IF_TRUE18
+push local 11
+call SnakeHead.dispose 1
+pop temp 0
+push local 0
+push this 0
+add
+push local 6
+push local 7
+push local 4
+push local 3
+call SnakeTail.new 4
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+label IF_FALSE18
+push local 3
+pop local 4
+push local 10
+pop local 3
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push local 13
+if-goto IF_TRUE19
+goto IF_FALSE19
+label IF_TRUE19
+push constant 0
+pop local 12
+label WHILE_EXP2
+push local 12
+not
+not
+if-goto WHILE_END2
+call Apple.suggestLocation 0
+pop temp 0
+push pointer 0
+call Apple.getX 0
+call Apple.getY 0
+call Snake.inLocation 3
+not
+if-goto IF_TRUE20
+goto IF_FALSE20
+label IF_TRUE20
+push constant 0
+not
+pop local 12
+call Apple.draw 0
+pop temp 0
+label IF_FALSE20
+goto WHILE_EXP2
+label WHILE_END2
+label IF_FALSE19
+push constant 0
+not
+return
+function Snake.incLength 0
+push argument 0
+pop pointer 0
+push constant 0
+return
+function Snake.checkLocation 0
+push argument 0
+pop pointer 0
+push argument 1
+push constant 0
+gt
+push argument 1
+push constant 31
+lt
+and
+push argument 2
+push constant 0
+gt
+push argument 2
+push constant 15
+lt
+and
+and
+push pointer 0
+push argument 1
+push argument 2
+call Snake.inLocation 3
+not
+and
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+not
+return
+label IF_FALSE0
+push constant 0
+return

@@ -1,0 +1,103 @@
+//Game class
+class Game{
+
+    field Player player;
+    field Tank enemy;
+
+    field Map map;
+
+    field int timer;
+
+    constructor Game new(){
+        let map = Map.new(6, 16, 505);
+
+        let enemy = Tank.new(10, 10, map, null);
+        let player = Player.new(map, enemy);
+
+        do enemy.setEnemy(player.getTank());
+
+        //timer for AI
+        let timer = 0;
+
+        return this;
+    }
+
+
+
+    method void run(){
+        var char key;
+        while (true){
+            let key = Keyboard.keyPressed();
+
+            //up
+            if (key = 87){
+                do player.move(0);
+            }
+
+            //right
+            if (key = 68){
+                do player.move(1);
+            }
+
+            //down
+            if (key = 83){
+                do player.move(2);
+            }
+
+            //left
+            if (key = 65){
+                do player.move(3);
+            }
+
+            //fire
+            if (key = 71){
+                do player.fire();
+            }
+
+            do AI();
+
+            do player.simulateBullet();
+            do enemy.simulateBullet();
+
+            do render();
+
+            do Sys.wait(100);
+            let timer = timer + 1;
+        }
+
+        return;
+    }
+
+    method void render(){
+
+        do Screen.clearScreen();
+        do map.render();
+        do player.render();
+        do enemy.render();
+        do player.renderBullet();
+        do enemy.renderBullet();
+
+        return;
+    }
+
+
+    method void AI(){
+        var int curDir;
+        if (~(enemy.getIsDead())){
+            let curDir = enemy.getDir();
+
+            let curDir = curDir + 1;
+            if (curDir > 3){
+                let curDir = 0;
+            }
+
+            if (timer > 14){
+                do enemy.move(curDir);
+                let timer = 0;
+            }
+            do enemy.fire();
+        }
+
+        return;
+    }
+}

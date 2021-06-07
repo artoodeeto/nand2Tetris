@@ -1,0 +1,18 @@
+/**
+ * The Main class is mandatory for every jack program.
+ */
+class Main {
+	
+	/**
+	 * The main function where execution starts and ends here.
+	 * Creates a new SnakeGame object and starts playing.
+	 */
+	function void main() {
+		var SnakeGame snakeGame;
+		let snakeGame = SnakeGame.new();
+		do snakeGame.play();
+		do snakeGame.dispose();
+		return;
+	}
+}
+

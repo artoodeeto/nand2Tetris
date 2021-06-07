@@ -1,0 +1,36 @@
+
+/*
+  used for collision detection between food and the snake
+*/
+class Col {
+
+  field Snake snake;
+  field Food food;
+
+  // should be a interface that has x, y, height, and width signature
+  constructor Col new(Snake s, Food f) {
+    let snake = s;
+    let food = f;
+    return this;
+  }
+
+  method void dispose() {
+    do Memory.deAlloc(this);
+    return;
+   }
+
+  // returns boolean if snake and food has collided
+  method boolean has_collided() {
+    if(
+      (food.xPos() < snake.width()) &
+      (food.width() > snake.xPos()) &
+      (food.yPos() < snake.height()) &
+      (food.height() >   snake.yPos())
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+
+  }
+}

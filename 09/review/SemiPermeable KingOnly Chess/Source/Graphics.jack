@@ -1,0 +1,346 @@
+class Graphics {
+	function void drawBPawn(int location) {
+		do Memory.poke(location+0, -1);
+		do Memory.poke(location+32, -32383);
+		do Memory.poke(location+64, -31807);
+		do Memory.poke(location+96, -30751);
+		do Memory.poke(location+128, -31807);
+		do Memory.poke(location+160, -32383);
+		do Memory.poke(location+192, -30751);
+		do Memory.poke(location+224, -28687);
+		do Memory.poke(location+256, -31807);
+		do Memory.poke(location+288, -31807);
+		do Memory.poke(location+320, -31807);
+		do Memory.poke(location+352, -31807);
+		do Memory.poke(location+384, -30751);
+		do Memory.poke(location+416, -28687);
+		do Memory.poke(location+448, -24583);
+		do Memory.poke(location+480, -1);
+		return;
+	}
+
+	function void drawWPawn(int location) {
+		do Memory.poke(location+0, -1);
+		do Memory.poke(location+32, -32383);
+		do Memory.poke(location+64, -31807);
+		do Memory.poke(location+96, -31135);
+		do Memory.poke(location+128, -31807);
+		do Memory.poke(location+160, -32383);
+		do Memory.poke(location+192, -30751);
+		do Memory.poke(location+224, -29071);
+		do Memory.poke(location+256, -32191);
+		do Memory.poke(location+288, -32191);
+		do Memory.poke(location+320, -32191);
+		do Memory.poke(location+352, -32191);
+		do Memory.poke(location+384, -31135);
+		do Memory.poke(location+416, -29647);
+		do Memory.poke(location+448, -24583);
+		do Memory.poke(location+480, -1);
+		return;
+	}
+
+	function void drawBKnight(int location) {
+		do Memory.poke(location+0, -1);
+		do Memory.poke(location+32, -31615);
+		do Memory.poke(location+64, -31615);
+		do Memory.poke(location+96, -30783);
+		do Memory.poke(location+128, -28703);
+		do Memory.poke(location+160, -28687);
+		do Memory.poke(location+192, -28687);
+		do Memory.poke(location+224, -28687);
+		do Memory.poke(location+256, -28735);
+		do Memory.poke(location+288, -28703);
+		do Memory.poke(location+320, -28687);
+		do Memory.poke(location+352, -28687);
+		do Memory.poke(location+384, -24583);
+		do Memory.poke(location+416, -24583);
+		do Memory.poke(location+448, -24583);
+		do Memory.poke(location+480, -1);
+		return;
+	}
+
+	function void drawWKnight(int location) {
+		do Memory.poke(location+0, -1);
+		do Memory.poke(location+32, -31615);
+		do Memory.poke(location+64, -31615);
+		do Memory.poke(location+96, -30783);
+		do Memory.poke(location+128, -29599);
+		do Memory.poke(location+160, -30671);
+		do Memory.poke(location+192, -30703);
+		do Memory.poke(location+224, -30607);
+		do Memory.poke(location+256, -30655);
+		do Memory.poke(location+288, -30623);
+		do Memory.poke(location+320, -30671);
+		do Memory.poke(location+352, -30703);
+		do Memory.poke(location+384, -26599);
+		do Memory.poke(location+416, -28663);
+		do Memory.poke(location+448, -24583);
+		do Memory.poke(location+480, -1);
+		return;
+	}
+
+	function void drawBBishop(int location) {
+		do Memory.poke(location+0, -1);
+		do Memory.poke(location+32, -32383);
+		do Memory.poke(location+64, -32319);
+		do Memory.poke(location+96, -31519);
+		do Memory.poke(location+128, -31007);
+		do Memory.poke(location+160, -28943);
+		do Memory.poke(location+192, -28943);
+		do Memory.poke(location+224, -24583);
+		do Memory.poke(location+256, -24583);
+		do Memory.poke(location+288, -28687);
+		do Memory.poke(location+320, -30751);
+		do Memory.poke(location+352, -31807);
+		do Memory.poke(location+384, -30751);
+		do Memory.poke(location+416, -28687);
+		do Memory.poke(location+448, -24583);
+		do Memory.poke(location+480, -1);
+		return;
+	}
+
+	function void drawWBishop(int location) {
+		do Memory.poke(location+0, -1);
+		do Memory.poke(location+32, -32383);
+		do Memory.poke(location+64, -32319);
+		do Memory.poke(location+96, -31519);
+		do Memory.poke(location+128, -31071);
+		do Memory.poke(location+160, -29007);
+		do Memory.poke(location+192, -30063);
+		do Memory.poke(location+224, -25703);
+		do Memory.poke(location+256, -26599);
+		do Memory.poke(location+288, -29647);
+		do Memory.poke(location+320, -31135);
+		do Memory.poke(location+352, -32191);
+		do Memory.poke(location+384, -31135);
+		do Memory.poke(location+416, -29647);
+		do Memory.poke(location+448, -24583);
+		do Memory.poke(location+480, -1);
+		return;
+	}
+
+	function void drawBRook(int location) {
+		do Memory.poke(location+0, -1);
+		do Memory.poke(location+32, -29263);
+		do Memory.poke(location+64, -28687);
+		do Memory.poke(location+96, -28687);
+		do Memory.poke(location+128, -30751);
+		do Memory.poke(location+160, -30751);
+		do Memory.poke(location+192, -30751);
+		do Memory.poke(location+224, -30751);
+		do Memory.poke(location+256, -30751);
+		do Memory.poke(location+288, -30751);
+		do Memory.poke(location+320, -30751);
+		do Memory.poke(location+352, -30751);
+		do Memory.poke(location+384, -30751);
+		do Memory.poke(location+416, -28687);
+		do Memory.poke(location+448, -24583);
+		do Memory.poke(location+480, -1);
+		return;
+	}
+
+	function void drawWRook(int location) {
+		do Memory.poke(location+0, -1);
+		do Memory.poke(location+32, -29263);
+		do Memory.poke(location+64, -28687);
+		do Memory.poke(location+96, -29647);
+		do Memory.poke(location+128, -31711);
+		do Memory.poke(location+160, -31711);
+		do Memory.poke(location+192, -31711);
+		do Memory.poke(location+224, -31711);
+		do Memory.poke(location+256, -31711);
+		do Memory.poke(location+288, -31711);
+		do Memory.poke(location+320, -31711);
+		do Memory.poke(location+352, -31711);
+		do Memory.poke(location+384, -31711);
+		do Memory.poke(location+416, -29647);
+		do Memory.poke(location+448, -24583);
+		do Memory.poke(location+480, -1);
+		return;
+	}
+
+	function void drawBQueen(int location) {
+		do Memory.poke(location+0, -1);
+		do Memory.poke(location+32, -24187);
+		do Memory.poke(location+64, -3697);
+		do Memory.poke(location+96, -18019);
+		do Memory.poke(location+128, -16387);
+		do Memory.poke(location+160, -24583);
+		do Memory.poke(location+192, -24583);
+		do Memory.poke(location+224, -28687);
+		do Memory.poke(location+256, -28687);
+		do Memory.poke(location+288, -30751);
+		do Memory.poke(location+320, -30751);
+		do Memory.poke(location+352, -31807);
+		do Memory.poke(location+384, -31807);
+		do Memory.poke(location+416, -28687);
+		do Memory.poke(location+448, -24583);
+		do Memory.poke(location+480, -1);
+		return;
+	}
+
+	function void drawWQueen(int location) {
+		do Memory.poke(location+0, -1);
+		do Memory.poke(location+32, -24187);
+		do Memory.poke(location+64, -3697);
+		do Memory.poke(location+96, -18019);
+		do Memory.poke(location+128, -16387);
+		do Memory.poke(location+160, -28663);
+		do Memory.poke(location+192, -26599);
+		do Memory.poke(location+224, -30703);
+		do Memory.poke(location+256, -29647);
+		do Memory.poke(location+288, -31711);
+		do Memory.poke(location+320, -31135);
+		do Memory.poke(location+352, -32191);
+		do Memory.poke(location+384, -32191);
+		do Memory.poke(location+416, -28687);
+		do Memory.poke(location+448, -24583);
+		do Memory.poke(location+480, -1);
+		return;
+	}
+
+	function void drawBKing(int location) {
+		do Memory.poke(location+0, -1);
+		do Memory.poke(location+32, -32383);
+		do Memory.poke(location+64, -31807);
+		do Memory.poke(location+96, -32383);
+		do Memory.poke(location+128, -32383);
+		do Memory.poke(location+160, -25159);
+		do Memory.poke(location+192, -16387);
+		do Memory.poke(location+224, -16387);
+		do Memory.poke(location+256, -1);
+		do Memory.poke(location+288, -1);
+		do Memory.poke(location+320, -1);
+		do Memory.poke(location+352, -16387);
+		do Memory.poke(location+384, -24583);
+		do Memory.poke(location+416, -28687);
+		do Memory.poke(location+448, -24583);
+		do Memory.poke(location+480, -1);
+		return;
+	}
+
+	function void drawWKing(int location) {
+		do Memory.poke(location+0, -1);
+		do Memory.poke(location+32, -32383);
+		do Memory.poke(location+64, -31807);
+		do Memory.poke(location+96, -32383);
+		do Memory.poke(location+128, -32383);
+		do Memory.poke(location+160, -25159);
+		do Memory.poke(location+192, -18451);
+		do Memory.poke(location+224, -24571);
+		do Memory.poke(location+256, -8185);
+		do Memory.poke(location+288, -16381);
+		do Memory.poke(location+320, -8185);
+		do Memory.poke(location+352, -20467);
+		do Memory.poke(location+384, -26599);
+		do Memory.poke(location+416, -30703);
+		do Memory.poke(location+448, -24583);
+		do Memory.poke(location+480, -1);
+		return;
+	}
+
+	function void drawBox(int location) {
+		do Memory.poke(location+0, -1);
+		do Memory.poke(location+32, -32767);
+		do Memory.poke(location+64, -32767);
+		do Memory.poke(location+96, -32767);
+		do Memory.poke(location+128, -32767);
+		do Memory.poke(location+160, -32767);
+		do Memory.poke(location+192, -32767);
+		do Memory.poke(location+224, -32767);
+		do Memory.poke(location+256, -32767);
+		do Memory.poke(location+288, -32767);
+		do Memory.poke(location+320, -32767);
+		do Memory.poke(location+352, -32767);
+		do Memory.poke(location+384, -32767);
+		do Memory.poke(location+416, -32767);
+		do Memory.poke(location+448, -32767);
+		do Memory.poke(location+480, -1);
+		return;
+	}
+
+	function void drawTGLine() {
+		var int line;
+		let line = 100;
+		do Screen.drawLine(line, 0, line, 255);
+		return;
+	}
+
+	function void drawChessBDSquare(char piece, char side, int index) {
+		if (side = 119) {
+			if (piece = 112) {
+				do Graphics.drawWPawn(index);
+			}
+			if (piece = 110) {
+				do Graphics.drawWKnight(index);
+			}
+			if (piece = 98) {
+				do Graphics.drawWBishop(index);
+			}
+			if (piece = 114) {
+				do Graphics.drawWRook(index);
+			}
+			if (piece = 113) {
+				do Graphics.drawWQueen(index);
+			}
+			if (piece = 107) {
+				do Graphics.drawWKing(index);
+			}
+			if (piece = 32) {
+				do Graphics.drawBox(index);
+			}
+		}
+
+		if (side = 98) {
+			if (piece = 112) {
+				do Graphics.drawBPawn(index);
+			}
+			if (piece = 110) {
+				do Graphics.drawBKnight(index);
+			}
+			if (piece = 98) {
+				do Graphics.drawBBishop(index);
+			}
+			if (piece = 114) {
+				do Graphics.drawBRook(index);
+			}
+			if (piece = 113) {
+				do Graphics.drawBQueen(index);
+			}
+			if (piece = 107) {
+				do Graphics.drawBKing(index);
+			}
+			if (piece = 32) {
+				do Graphics.drawBox(index);
+			}
+		}
+
+		return;
+	}
+
+	function void drawChessBD(int vertInc, int index, String positions) {
+		var int i;
+		var int j;
+		var int option;
+		var char side;
+		var char piece;
+
+		let i = 0;
+		let j = 0;
+		let option = 0;
+		
+		while (i < 8) {
+			while (j < 8) {
+				let side = positions.charAt(option);
+				let piece = positions.charAt(option + 1);
+				do Graphics.drawChessBDSquare(piece, side, (index + j + (i * vertInc)) + 16384);
+				let j = j + 1;
+				let option = option + 5;
+			}
+			let j = 0;
+			let i = i + 1;
+		}
+
+		return;
+	}
+}

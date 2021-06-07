@@ -1,0 +1,235 @@
+class Tank{
+    field int x;
+    field int y;
+    field int dir;
+
+    
+    field int hp;
+    field Map map;
+    field int size;
+
+
+    field Bullet currentBullet;
+    field Tank Enemy;
+    field bool isDead;
+
+    constructor Tank new(int Ax, int Ay, Map Amap, Tank AEnemy){
+        let hp = 5;
+
+        let x = Ax;
+        let y = Ay;
+
+        let map = Amap;
+
+        let dir = 0;
+
+        let size = 10;
+
+        let Enemy = AEnemy;
+
+
+        let isDead = false;
+
+        return this;
+    }
+
+    method void render(){
+        if (isDead){
+            return;
+        }
+
+        do renderAtPos(map.getX() + (x * 10), map.getY() + (y * 10), dir);
+        return;
+    }
+
+
+    method void renderAtPos(int Ax, int Ay, int Adir){
+
+        if (Adir = 0){
+            do Screen.drawRectangle(Ax, Ay - (size - 1), Ax + (size - 1), Ay);
+            do Screen.drawRectangle(Ax - (size - 1), Ay, Ax + (size * 2 - 1), Ay + (size - 1));
+        }
+
+        if (Adir = 1){
+            do Screen.drawRectangle(Ax + (size - 1), Ay, Ax + (size * 2 - 1), Ay + (size - 1));
+            do Screen.drawRectangle(Ax, Ay - (size - 1), Ax + (size - 1), Ay + (size * 2 - 1));
+        }
+
+        if (Adir = 2){
+            do Screen.drawRectangle(Ax, Ay + (size - 1), Ax + (size - 1), Ay + (size * 2 - 1));
+            do Screen.drawRectangle(Ax - (size - 1), Ay, Ax + (size * 2 - 1), Ay + (size - 1));
+        }
+
+        if (Adir = 3){
+            do Screen.drawRectangle(Ax - (size - 1), Ay, Ax, Ay + (size - 1));
+            do Screen.drawRectangle(Ax, Ay - (size - 1), Ax + (size - 1), Ay + (size * 2 - 1));
+        }
+
+        return;
+    }
+
+    method void moveForward(){
+        if (dir = 0){
+            let y = y - 1;
+            if (y < 1){
+                let y = 1;
+            }
+        }
+
+        if (dir = 1){
+            let x = x + 1;
+            if (x > (map.getW() - 2)){
+                let x = map.getW() - 2;
+            }
+        }
+
+        if (dir = 2){
+            let y = y + 1;
+            if (y > (map.getH() - 2)){
+                let y = map.getH() - 2;
+            }
+        }
+
+        if (dir = 3){
+            let x = x - 1;
+            if (x < 1){
+                let x = 1;
+            }
+        }
+
+        return;
+    }
+
+
+    method void rotate(int Adir){
+        let dir = Adir;
+
+        return;
+    }
+
+    method void move(int Adir){
+        if (isDead){
+            return;
+        }
+
+        if (Adir = dir){
+            do moveForward();
+        }else{
+            do rotate(Adir);
+        }
+
+        return;
+    }
+
+    method void simulateBullet(){
+        if (~(currentBullet = null)){
+            do currentBullet.move();
+        }
+
+        if (~(currentBullet = null)){
+            if (~(Enemy = null)){
+                do currentBullet.checkCollision();
+            }
+        }
+
+        return;
+    }
+
+    method void renderBullet(){
+        if (~(currentBullet = null)){
+            do currentBullet.render();
+        }
+
+        return;
+    }
+
+    method void fire(){
+        var int bx, by, bdir;
+        
+        if (~(currentBullet = null)){
+            return;
+        }
+        
+
+        if (dir = 0){
+            let bx = x;
+            let by = y - 1;
+            let bdir = dir;
+        }
+
+        if (dir = 1){
+            let bx = x + 1;
+            let by = y;
+            let bdir = dir;
+        }
+
+        if (dir = 2){
+            let bx = x;
+            let by = y + 1;
+            let bdir = dir;
+        }
+
+        if (dir = 3){
+            let bx = x - 1;
+            let by = y;
+            let bdir = dir;
+        }
+
+        let currentBullet = Bullet.new(bx, by, bdir, map, this, Enemy);
+
+        return;
+    }
+
+    method void setBulletNull(){
+        let currentBullet = null;
+
+        return;
+    }
+
+    method int getHp(){
+        return hp;
+    }
+
+
+    method int getDir(){
+        return dir;
+    }
+
+    method int getX(){
+        return x;
+    }
+
+    method int getY(){
+        return y;
+    }
+
+
+    method void decreaseHp(){
+        let hp = hp - 1;
+        if (hp = 0){
+            do destroy();
+        }
+
+        return;
+    }
+
+    method void destroy(){
+        let isDead = true;
+        return;
+    }
+
+    method void setEnemy(Tank en){
+        let Enemy = en;
+        return;
+    }
+
+    method bool getIsDead(){
+        return isDead;
+    }
+
+    method void setDir(int Adir){
+        let dir = Adir;
+        return;
+    }
+    
+}

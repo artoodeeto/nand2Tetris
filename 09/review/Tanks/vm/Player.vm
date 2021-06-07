@@ -1,0 +1,192 @@
+function Player.new 0
+push constant 2
+call Memory.alloc 1
+pop pointer 0
+push constant 2
+push constant 2
+push argument 0
+push argument 1
+call Tank.new 4
+pop this 0
+push argument 1
+pop this 1
+push pointer 0
+return
+function Player.renderHp 0
+push argument 0
+pop pointer 0
+push constant 0
+push constant 0
+call Output.moveCursor 2
+pop temp 0
+push this 1
+call Tank.getIsDead 1
+push constant 0
+not
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 8
+call String.new 1
+push constant 89
+call String.appendChar 2
+push constant 111
+call String.appendChar 2
+push constant 117
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 87
+call String.appendChar 2
+push constant 73
+call String.appendChar 2
+push constant 78
+call String.appendChar 2
+push constant 33
+call String.appendChar 2
+call Output.printString 1
+pop temp 0
+push constant 0
+return
+label IF_FALSE0
+push this 0
+call Tank.getIsDead 1
+push constant 0
+not
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 9
+call String.new 1
+push constant 89
+call String.appendChar 2
+push constant 111
+call String.appendChar 2
+push constant 117
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 76
+call String.appendChar 2
+push constant 79
+call String.appendChar 2
+push constant 83
+call String.appendChar 2
+push constant 69
+call String.appendChar 2
+push constant 33
+call String.appendChar 2
+call Output.printString 1
+pop temp 0
+push constant 0
+return
+label IF_FALSE1
+push constant 8
+call String.new 1
+push constant 89
+call String.appendChar 2
+push constant 111
+call String.appendChar 2
+push constant 117
+call String.appendChar 2
+push constant 114
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 72
+call String.appendChar 2
+push constant 80
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+call Output.printString 1
+pop temp 0
+push this 0
+call Tank.getHp 1
+call Output.printInt 1
+pop temp 0
+push constant 1
+call String.new 1
+push constant 32
+call String.appendChar 2
+call Output.printString 1
+pop temp 0
+push constant 9
+call String.new 1
+push constant 69
+call String.appendChar 2
+push constant 110
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+push constant 109
+call String.appendChar 2
+push constant 121
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+push constant 72
+call String.appendChar 2
+push constant 80
+call String.appendChar 2
+push constant 32
+call String.appendChar 2
+call Output.printString 1
+pop temp 0
+push this 1
+call Tank.getHp 1
+call Output.printInt 1
+pop temp 0
+push constant 0
+return
+function Player.render 0
+push argument 0
+pop pointer 0
+push this 0
+call Tank.render 1
+pop temp 0
+push pointer 0
+call Player.renderHp 1
+pop temp 0
+push constant 0
+return
+function Player.move 0
+push argument 0
+pop pointer 0
+push this 0
+push argument 1
+call Tank.move 2
+pop temp 0
+push constant 0
+return
+function Player.simulateBullet 0
+push argument 0
+pop pointer 0
+push this 0
+call Tank.simulateBullet 1
+pop temp 0
+push constant 0
+return
+function Player.renderBullet 0
+push argument 0
+pop pointer 0
+push this 0
+call Tank.renderBullet 1
+pop temp 0
+push constant 0
+return
+function Player.fire 0
+push argument 0
+pop pointer 0
+push this 0
+call Tank.fire 1
+pop temp 0
+push constant 0
+return
+function Player.getTank 0
+push argument 0
+pop pointer 0
+push this 0
+return

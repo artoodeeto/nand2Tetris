@@ -1,0 +1,242 @@
+class Main {
+	function void main() {
+		var int quit;
+		var int verticalInc;
+		var int Offset;
+		var String move;
+		var String positions;
+		var int KStart;
+		var char rowNum;
+		var char row;
+		var char col;
+		var int clearScrn;
+		var char play;
+
+		do Output.printString("Semi-Permeable King-Only Chess");
+		do Output.println();
+		do Output.println();
+		do Output.printString("First of all, YES, I do know that this is quite restrictive,");
+		do Output.println();
+		do Output.printString("but there's a time limit, ok?");
+		do Output.println();
+		do Output.println();
+		do Output.printString("Second of all, the way this works is that you type");
+		do Output.println();
+		do Output.printString("in a location in chess notation (e.g. KE4) and the king");
+		do Output.println();
+		do Output.printString("moves there as per the rules.");
+		do Output.println();
+		do Output.printString("All incorrect moves will be discarded.");
+		do Output.println();
+		do Output.println();
+		do Output.printString("Can we play? ([a]gree or [d]isagree): ");
+		let play = Keyboard.readChar();
+
+		let clearScrn = 0;
+		let quit = 1;
+		if (play = 65) {
+			do Output.printString("test");
+			do Sys.wait(1000);
+			let quit = 0;
+		}
+		let positions = "w 18 w 28 w 38 w 48 w 58 w 68 w 78 w 88 w 17 w 27 w 37 w 47 w 57 w 67 w 77 w 87 w 16 w 26 w 36 w 46 w 56 w 66 w 76 w 86 w 15 w 25 w 35 w 45 w 55 w 65 w 75 w 85 w 14 w 24 w 34 w 44 wk54 w 64 w 74 w 84 w 13 w 23 w 33 w 43 w 53 w 63 w 73 w 83 w 12 w 22 w 32 w 42 w 52 w 62 w 72 w 82 w 11 w 21 w 31 w 41 w 51 w 61 w 71 w 81";
+		do Screen.clearScreen();
+		while (quit < 1) {
+			let verticalInc = 32 * 16;
+			let Offset = 11;
+			do Graphics.drawTGLine();
+			do Graphics.drawChessBD(verticalInc, Offset + 5 + (verticalInc * 5), positions);
+
+			let KStart = Main.find(positions, 0, 0, 0);
+			let rowNum = positions.charAt(KStart + 2);
+			let col = positions.charAt(KStart + 3);
+			let row = Main.rowTransNC(rowNum);
+			do Output.println();
+			do Output.printString("King: ");
+			do Output.printChar(row);
+			do Output.printChar(col);
+			do Output.println();
+
+			let move = Keyboard.readLine("Move: ");
+
+			if (move.charAt(0) = 81) {
+				if (move.charAt(1) = 85) {
+					if (move.charAt(2) = 73) {
+						if (move.charAt(3) = 84) {
+							let quit = 1;
+						}
+					}
+				}
+			}
+
+			do Main.move(positions, move);
+			let clearScrn = clearScrn + 1;
+			if (clearScrn = 7) {
+				do Screen.clearScreen();
+				let clearScrn = 0;
+			}
+			do Sys.wait(1000);
+		}
+		return;
+	}
+
+	function void move(String positions, String move) {
+		/** This function changes the state of the board if your move is valid. */
+		/* TODO: HELP MEEEEEE */
+		var char rowStr;
+		var char colStr;
+		var int row;
+		var int col;
+		var int KStart;
+		var char curRowStr;
+		var char curColStr;
+		var int curRow;
+		var int curCol;
+		var int deltaRow;
+		var int deltaCol;
+		var int FinalDest;
+		let rowStr = move.charAt(1);
+		let colStr = move.charAt(2);
+		let row = Main.rowTrans(rowStr);
+		let col = Main.colTrans(colStr);
+		let KStart = Main.find(positions, 0, 0, 0);
+		let curRowStr = positions.charAt(KStart + 2);
+		let curColStr = positions.charAt(KStart + 3);
+		let curRow = Main.colTrans(curRowStr);
+		let curCol = Main.colTrans(curColStr);
+		let deltaRow = row - curRow;
+		let deltaCol = col - curCol;
+
+		/* FINALLY! */
+		if ((deltaRow > -2 & deltaRow < 2) & (deltaCol > -2 & deltaCol < 2)) {
+			let FinalDest = Main.find(positions, 1, row, col);
+			do positions.setCharAt(KStart + 1, 32);
+			do positions.setCharAt(FinalDest + 1, 107);
+			return;
+		}
+
+		return;
+	}
+
+	function int find(String positions, int mode, int row, int col) {
+		var int i;
+		var char piece;
+		var char rowStr;
+		var char colStr;
+		var int rowVal;
+		var int colVal;
+		let i = 0;
+
+		// do Output.printString("find wuz here");
+
+		while (i < 64) {
+			if (mode = 0) {
+				let piece = positions.charAt((i * 5) + 1);
+				if (piece = 107) {
+					return i * 5;
+				}
+			}
+
+			if (mode = 1) {
+				let rowStr = positions.charAt((i * 5) + 2);
+				let colStr = positions.charAt((i * 5) + 3);
+				let rowVal = Main.colTrans(rowStr);
+				let colVal = Main.colTrans(colStr);
+				if (rowVal = row & colVal = col) {
+					return i * 5;
+				}
+			}
+
+			let i = i + 1;
+		}
+
+		return 0;
+	}
+
+	function int rowTrans(char row) {
+		var int rowInt;
+		if (row = 65) {
+			let rowInt = 1;
+		}
+		if (row = 66) {
+			let rowInt = 2;
+		}
+		if (row = 67) {
+			let rowInt = 3;
+		}
+		if (row = 68) {
+			let rowInt = 4;
+		}
+		if (row = 69) {
+			let rowInt = 5;
+		}
+		if (row = 70) {
+			let rowInt = 6;
+		}
+		if (row = 71) {
+			let rowInt = 7;
+		}
+		if (row = 72) {
+			let rowInt = 8;
+		}
+		return rowInt;
+	}
+
+	function int colTrans(char col) {
+		var int colInt;
+		if (col = 49) {
+			let colInt = 1;
+		}
+		if (col = 50) {
+			let colInt = 2;
+		}
+		if (col = 51) {
+			let colInt = 3;
+		}
+		if (col = 52) {
+			let colInt = 4;
+		}
+		if (col = 53) {
+			let colInt = 5;
+		}
+		if (col = 54) {
+			let colInt = 6;
+		}
+		if (col = 55) {
+			let colInt = 7;
+		}
+		if (col = 56) {
+			let colInt = 8;
+		}
+		return colInt;
+	}
+
+	function char rowTransNC(char row) {
+		var char rowChar;
+		if (row = 49) {
+			let rowChar = 65;
+		}
+		if (row = 50) {
+			let rowChar = 66;
+		}
+		if (row = 51) {
+			let rowChar = 67;
+		}
+		if (row = 52) {
+			let rowChar = 68;
+		}
+		if (row = 53) {
+			let rowChar = 69;
+		}
+		if (row = 54) {
+			let rowChar = 70;
+		}
+		if (row = 55) {
+			let rowChar = 71;
+		}
+		if (row = 56) {
+			let rowChar = 72;
+		}
+		return rowChar;
+	}
+}

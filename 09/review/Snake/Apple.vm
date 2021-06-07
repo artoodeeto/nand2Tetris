@@ -1,0 +1,241 @@
+function Apple.suggestLocation 0
+push constant 1
+push constant 31
+call Random.randInRange 2
+pop static 0
+push constant 1
+push constant 14
+call Random.randInRange 2
+pop static 1
+push constant 0
+return
+function Apple.init 0
+push argument 0
+pop static 0
+push argument 1
+pop static 1
+call Apple.draw 0
+pop temp 0
+push constant 0
+return
+function Apple.getX 0
+push static 0
+return
+function Apple.getY 0
+push static 1
+return
+function Apple.getLocation 0
+push static 0
+push constant 512
+push static 1
+call Math.multiply 2
+add
+return
+function Apple.draw 1
+push constant 16384
+call Apple.getLocation 0
+add
+pop local 0
+push local 0
+push constant 0
+add
+push constant 2048
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 32
+add
+push constant 1024
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 64
+add
+push constant 512
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 96
+add
+push constant 256
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 128
+add
+push constant 1632
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 160
+add
+push constant 2448
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 192
+add
+push constant 4104
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 224
+add
+push constant 8196
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 256
+add
+push constant 16386
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 288
+add
+push constant 32767
+neg
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 320
+add
+push constant 32767
+neg
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 352
+add
+push constant 16386
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 384
+add
+push constant 8196
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 416
+add
+push constant 4104
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 448
+add
+push constant 2448
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 480
+add
+push constant 1632
+call Memory.poke 2
+pop temp 0
+push constant 0
+return
+function Apple.erase 1
+push constant 16384
+call Apple.getLocation 0
+add
+pop local 0
+push local 0
+push constant 0
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 32
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 64
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 96
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 128
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 160
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 192
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 224
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 256
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 288
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 320
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 352
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 384
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 416
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 448
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 480
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push constant 0
+return

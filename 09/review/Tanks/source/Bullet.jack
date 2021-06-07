@@ -1,0 +1,141 @@
+//Bullet class
+class Bullet{
+
+    field int dir;
+    field int x;
+    field int y;
+
+    field int size;
+
+    field Map map;
+
+    field Tank parent;
+
+    field Tank Enemy;
+
+    constructor Bullet new(int Ax, int Ay, int Adir, Map Amap, Tank Aparent, Tank AEnemy){
+
+        let x = Ax;
+        let y = Ay;
+
+        let dir = Adir;
+
+        let size = 10;
+
+        let map = Amap;
+
+        let parent = Aparent;
+
+        let Enemy = AEnemy;
+
+        return this;
+    }
+
+    //move bullet
+    method void move(){
+        if (dir = 0){
+            let y = y - 1;
+            if (y < 1){
+                do destroy();
+            }
+        }
+
+        if (dir = 1){
+            let x = x + 1;
+            if (x > (map.getW() - 2)){
+                do destroy();
+            }
+        }
+
+        if (dir = 2){
+            let y = y + 1;
+            if (y > (map.getH() - 2)){
+                do destroy();
+            }
+        }
+
+        if (dir = 3){
+            let x = x - 1;
+            if (x < 1){
+                do destroy();
+            }
+        }
+
+        return;
+    }
+
+
+    method void checkCollision(){
+        //get collision zone
+        var int lx, ly, rx, ry;
+        var int ex, ey;
+        let ex = Enemy.getX();
+        let ey = Enemy.getY();
+
+        if (Enemy.getDir() = 0){
+            let lx = ex - 1;
+            let ly = ey - 1;
+            let rx = ex + 1;
+            let ry = ey;
+        }
+
+        if (Enemy.getDir() = 1){
+            let lx = ex;
+            let ly = ey - 1;
+            let rx = ex + 1;
+            let ry = ey + 1;
+        }
+
+        if (Enemy.getDir() = 2){
+            let lx = ex - 1;
+            let ly = ey;
+            let rx = ex + 1;
+            let ry = ey + 1;
+        }
+
+        if (Enemy.getDir() = 3){
+            let lx = ex - 1;
+            let ly = ey - 1;
+            let rx = ex;
+            let ry = ey + 1;
+        }
+
+
+        //check collision zone
+        if ((x > (lx - 1)) & (x < (rx + 1)) & (y > (ly - 1)) & (y < (ry + 1))){
+            do Enemy.decreaseHp();
+            do destroy();
+        }
+
+        return;
+    }
+
+
+    method void render(){
+        var int xp, yp;
+
+        //get coords
+        let xp = map.getX() + (x * 10);
+        let yp = map.getY() + (y * 10);
+
+        do Screen.drawRectangle(xp, yp, xp + (size - 1), yp + (size - 1));
+
+        return;
+    }
+
+
+
+    method void destroy(){
+        do parent.setBulletNull();
+        do dispose();
+
+        return;
+    }
+
+    method void dispose(){
+        do Memory.deAlloc(this);
+
+        return;
+    }
+
+}

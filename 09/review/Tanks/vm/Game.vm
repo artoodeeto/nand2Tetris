@@ -1,0 +1,181 @@
+function Game.new 0
+push constant 4
+call Memory.alloc 1
+pop pointer 0
+push constant 6
+push constant 16
+push constant 505
+call Map.new 3
+pop this 2
+push constant 10
+push constant 10
+push this 2
+push constant 0
+call Tank.new 4
+pop this 1
+push this 2
+push this 1
+call Player.new 2
+pop this 0
+push this 1
+push this 0
+call Player.getTank 1
+call Tank.setEnemy 2
+pop temp 0
+push constant 0
+pop this 3
+push pointer 0
+return
+function Game.run 1
+push argument 0
+pop pointer 0
+label WHILE_EXP0
+push constant 0
+not
+not
+if-goto WHILE_END0
+call Keyboard.keyPressed 0
+pop local 0
+push local 0
+push constant 87
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 0
+push constant 0
+call Player.move 2
+pop temp 0
+label IF_FALSE0
+push local 0
+push constant 68
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push this 0
+push constant 1
+call Player.move 2
+pop temp 0
+label IF_FALSE1
+push local 0
+push constant 83
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push this 0
+push constant 2
+call Player.move 2
+pop temp 0
+label IF_FALSE2
+push local 0
+push constant 65
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push this 0
+push constant 3
+call Player.move 2
+pop temp 0
+label IF_FALSE3
+push local 0
+push constant 71
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push this 0
+call Player.fire 1
+pop temp 0
+label IF_FALSE4
+push pointer 0
+call Game.AI 1
+pop temp 0
+push this 0
+call Player.simulateBullet 1
+pop temp 0
+push this 1
+call Tank.simulateBullet 1
+pop temp 0
+push pointer 0
+call Game.render 1
+pop temp 0
+push constant 100
+call Sys.wait 1
+pop temp 0
+push this 3
+push constant 1
+add
+pop this 3
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function Game.render 0
+push argument 0
+pop pointer 0
+call Screen.clearScreen 0
+pop temp 0
+push this 2
+call Map.render 1
+pop temp 0
+push this 0
+call Player.render 1
+pop temp 0
+push this 1
+call Tank.render 1
+pop temp 0
+push this 0
+call Player.renderBullet 1
+pop temp 0
+push this 1
+call Tank.renderBullet 1
+pop temp 0
+push constant 0
+return
+function Game.AI 1
+push argument 0
+pop pointer 0
+push this 1
+call Tank.getIsDead 1
+not
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 1
+call Tank.getDir 1
+pop local 0
+push local 0
+push constant 1
+add
+pop local 0
+push local 0
+push constant 3
+gt
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 0
+pop local 0
+label IF_FALSE1
+push this 3
+push constant 14
+gt
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push this 1
+push local 0
+call Tank.move 2
+pop temp 0
+push constant 0
+pop this 3
+label IF_FALSE2
+push this 1
+call Tank.fire 1
+pop temp 0
+label IF_FALSE0
+push constant 0
+return

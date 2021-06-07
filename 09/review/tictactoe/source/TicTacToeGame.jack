@@ -1,0 +1,105 @@
+class TicTacToeGame {
+  field TicTacToe game;
+
+  constructor TicTacToeGame new() {
+    let game = TicTacToe.new();
+    return this;
+  }
+
+  // display to the user whose turn it is
+  // and ask user to enter position number
+  method int ask() {
+    var int i;
+    do Output.moveCursor(1, 0);
+    if (game.getCurrentSymbol() = 79) {
+      do Output.printString("Turn: 0");
+    } else {
+      do Output.printString("Turn: X");
+    }
+    do Output.moveCursor(0, 0);
+    let i = Keyboard.readInt("Enter your pick [1-9]: ");
+    return i;
+  }
+
+  // check if the input provided by the user is valid
+  method boolean validInput(int input) {
+    var boolean valid;
+
+    if ((input > 0) & (input < 10)) {
+      let valid = true;
+    } else {
+      do Output.moveCursor(0, 23);
+      do Output.printString("Invalid position.");
+      do Sys.wait(5000);
+      do Output.moveCursor(0, 23);
+      do Output.printString("                 ");
+      let valid = false;
+      return valid;
+    }
+
+    if (~(game.getPosition(input - 1) = 79) & ~(game.getPosition(input - 1) = 88)) {
+      let valid = true;
+    } else {
+      do Output.moveCursor(0, 23);
+      do Output.printString("Position taken.");
+      do Sys.wait(5000);
+      do Output.moveCursor(0, 23);
+      do Output.printString("               ");
+      let valid = false;
+      return valid;
+    }
+    return valid;
+  }
+
+  // run new game of TicTacToe
+  method void run() {
+    var boolean exit; 
+    var int input;
+    let exit = false;
+
+    do game.setStartingSymbol(); 
+    do game.draw();
+    while (~exit) {
+      let input = ask();      
+      if (validInput(input)) {
+        do game.setPosition(input);
+        do game.draw();
+
+        if (game.checkWinner()) {
+          do Screen.clearScreen();
+          do game.draw();
+          do Output.moveCursor(2, 28);
+          if (game.getCurrentSymbol() = 79) {
+            do Output.printString("Os win!");
+          } else {
+            do Output.printString("Xs win!");
+          }
+          let exit = true;
+          return;
+        }
+
+        if (game.checkDraw()) {
+          do Screen.clearScreen();
+          do game.draw();
+          do Output.moveCursor(2, 25);
+          do Output.printString("It's a draw!");
+          let exit = true;
+          return;
+        }
+
+        if (game.getCurrentSymbol() = 88) {
+          do game.setCurrentSymbol(79);
+        } else {
+          do game.setCurrentSymbol(88);
+        }
+      } 
+    }
+    return;
+  }
+ 
+  // dispose the game
+  method void dispose() {
+    do Memory.deAlloc(this);
+    return;
+  }
+}

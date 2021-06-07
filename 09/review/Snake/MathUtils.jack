@@ -1,0 +1,16 @@
+/**
+ *this class implements some useful math functions
+ *used as an extension to the default Math class
+ */
+class MathUtils {
+	
+	/** 
+	 * Returns  a % b 
+	 */
+	function int mod(int a, int b) {
+		var int d;
+		let d = a / b;
+		return a - (b * d);
+	}
+}
+

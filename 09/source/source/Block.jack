@@ -1,0 +1,12 @@
+/*
+creates a block
+*/
+class Block {
+    // field int width = 16;
+    // field int block_interval = 16;
+      
+    // constructor List new(int height) {
+    //     let height = height;
+    //     return this;
+    // }
+}

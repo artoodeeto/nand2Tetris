@@ -1,0 +1,43 @@
+/**
+ * This class is used as a Random Numbers Generator.
+ */
+class Random {
+	static int number;
+	static int A;
+	static int M;
+	static int Q;
+	static int R;
+
+	/** 
+	 * Seeds this random number generator, default is 1 if n = 0 
+	 */
+	function void seed(int n) {
+		let number = n;
+		if (n = 0) {
+			let number = 1;
+		}
+		let A = 219;
+		let M = 32749;
+		let Q = M / A;
+		let R = MathUtils.mod(M, A);
+		return;
+	}
+
+	/** 
+	 * Returns random number between 0 and M, exclusive 
+	 */
+	function int rand() {
+        let number = (A * (MathUtils.mod(number, Q))) - (R * (number / Q));
+        if(number < 0) {
+           let number = number + M;
+        }
+		return number;
+    }
+
+	/** 
+	 * Returns random number between m and n, exclusive 
+	 */
+	function int randInRange(int m, int n) {
+		return MathUtils.mod(Random.rand(), n - m) + m;
+	}
+}

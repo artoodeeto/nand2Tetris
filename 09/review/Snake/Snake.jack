@@ -1,0 +1,277 @@
+class Snake {
+	
+	field Array snake; // the snake is an array of objects
+	field int applesCount; // number of ate apples
+	field int length;
+	field boolean incLength;
+
+	constructor Snake new() {
+		let length = 6;
+		let applesCount = 0;
+		let incLength = false;
+		let snake = Array.new(length);
+		let snake[0] = SnakeHead.new(7, 1, 1, 1);
+		let snake[1] = SnakeBody.new(6, 1, 1, 1);
+		let snake[2] = SnakeBody.new(5, 1, 1, 1);
+		let snake[3] = SnakeBody.new(4, 1, 1, 1);
+		let snake[4] = SnakeBody.new(3, 1, 1, 1);
+		let snake[5] = SnakeTail.new(2, 1, 1, 1);
+		return this;
+	}
+
+	method void dispose() {
+		var int i;
+		var SnakeHead snakePart;
+
+		let i = 0;
+		while (i < length) {
+			let snakePart = snake[i];
+			do snakePart.dispose();
+			let i = i + 1;
+		}
+		let length = 0;
+		let applesCount = 0;
+		do snake.dispose();
+		do Memory.deAlloc(this);
+		return;
+	}
+
+	method void setIncLength() {
+		let incLength = true;
+		return;
+	}
+
+	method int getApplesCount() {
+		return applesCount;
+	}
+
+	method int getDirection() {
+		var SnakeHead snakeHead;
+		let snakeHead = snake[0];
+		return snakeHead.getDirection();
+	}
+
+	method int getHeadX() {
+		var Snakehead snakeHead;
+		let snakeHead = snake[0];
+		return snakeHead.getX();
+	}
+
+	method int getHeadY() {
+		var Snakehead snakeHead;
+		let snakeHead = snake[0];
+		return snakeHead.getY();
+	}
+
+	method boolean inLocation(int ax, int ay) {
+		var int i;
+		var SnakeHead snakeObject;
+		var boolean flag;
+		let i = 0;
+		while ((i < length) & (~flag)) {
+			let snakeObject = snake[i];
+			if ((ax = snakeObject.getX()) & (ay = snakeObject.getY())) {
+				let flag = true;
+			}
+			let i = i + 1;
+		}
+		return flag;
+	}
+
+
+	/**
+	 * This method is the backbone of the whole program.
+	 * It seems complicated, and it is.
+	 * But it follows a pattern.
+	 * I strongly recommend going through it.
+	 */
+	method boolean step(int newDir) {
+		var int i, nextX, nextY, nextMoveDir, nextDir, nextType;
+		var int x, y, type, direction, moveDirection;
+		var SnakeHead snakeObject;
+		var boolean flag;
+		var boolean eatsApple;
+		var Array tmp;
+		var int j;
+
+		let i = 0;
+		let nextDir = newDir;
+		let nextMoveDir = newDir;
+		let eatsApple = false;
+		while (i < length) {
+			let flag = false;
+			let snakeObject = snake[i];
+
+			let x = snakeObject.getX();
+			let y = snakeObject.getY();
+			let type = snakeObject.getType();
+			let direction = snakeObject.getDirection();
+			let moveDirection = snakeObject.getMoveDirection();
+
+
+			/**
+			 * The type of the Snake Object:
+			 *  (Head:1, Body:2, Knee:3, Tail:4).
+			 * Head never changes, also Tail,
+			 *  but, Body and Knee would change.
+			 * The logic here depends on the current
+			 *  and next directions of the Snake Objects.
+			 */
+			if (type = 1) {
+				let nextType = 1;
+				let flag = true;
+			}
+			if (type = 4) {
+				let nextType = 4;
+				let flag = true;
+			}
+			if (~flag) {
+				if (((direction=nextDir)&(~(moveDirection=nextMoveDir)))|
+					((moveDirection=nextMoveDir)&(~(direction=nextDir)))) {
+					if (type = 2) {
+						let nextType = 3;
+					}
+					if (type = 3) {
+						let nextType = 2;
+					}
+				} else {
+					let nextType = type;
+				}
+			}
+
+			/**
+			 * Computes the new x, y coordinates of the snake object
+			 *  based on moveDirection and nextMoveDir.
+			 */
+			if (((nextMoveDir = 1) & (moveDirection = 1))|
+				((nextMoveDir = 1) & (moveDirection = 2))|
+				((nextMoveDir = 1) & (moveDirection = 4))) {
+				let x = x + 1;
+			}
+			if (((nextMoveDir = 2) & (moveDirection = 1))|
+				((nextMoveDir = 2) & (moveDirection = 2))|
+				((nextMoveDir = 2) & (moveDirection = 3))) {
+				let y = y + 1;
+			}
+			if (((nextMoveDir = 3) & (moveDirection = 2))|
+				((nextMoveDir = 3) & (moveDirection = 3))|
+				((nextMoveDir = 3) & (moveDirection = 4))) {
+				let x = x - 1;
+			}
+			if (((nextMoveDir = 4) & (moveDirection = 1))|
+				((nextMoveDir = 4) & (moveDirection = 3))|
+				((nextMoveDir = 4) & (moveDirection = 4))) {
+				let y = y -1;
+			}
+
+			/**
+			 * Increase the length of the snake at each level.
+			 */
+			if ((i = 1) & incLength) {
+
+				let length = length;
+				let tmp = Array.new(length+1);
+				let tmp[0] = snake[0];
+				if (nextType = 2) {
+					let tmp[1] = SnakeBody.new(x, y, nextDir, nextMoveDir);
+				}
+				if (nextType = 3) {
+					let tmp[1] = SnakeKnee.new(x, y, nextDir, nextMoveDir);
+				}
+				let j = 1;
+				while (j < length) {
+					let tmp[j+1] = snake[j];
+					let j = j + 1;
+				}
+				do snake.dispose();
+				let length = length + 1;
+				let snake = tmp;
+				let incLength = false;
+				return true;
+			}
+
+			/**
+			 * The logic here is to construct the new snake Object
+			 *  based on the updated arguments. The old object is
+			 *  recycled just before creating the new one
+			 * Remember that the old object is already disposed.
+			 * If nextType is 1, i.e., Head and the snake would 
+			 *  eat the apple then eat it.
+			 */
+			if ( nextType = 1) {
+				/**
+				 * Check that the new location of the head is a valid location.
+				 * If the location is valid, continue execution and return
+				 *  true at the end, otherwise, return false.
+				 */
+				 if (~checkLocation(x, y)) {
+				 	return false;
+				 }
+
+				do snakeObject.dispose();
+				if ((x = Apple.getX()) & (y = Apple.getY())) {
+					do Apple.erase();
+					let snake[i] = SnakeHead.new(x, y,
+												 nextDir, nextMoveDir);
+					let eatsApple = true;
+					let applesCount = applesCount + 1;
+				} else {
+					let snake[i] = SnakeHead.new(x, y,
+												 nextDir, nextMoveDir);
+				}
+			}
+			if ( nextType= 2) {
+				do snakeObject.dispose();
+				let snake[i] = SnakeBody.new(x, y, nextDir, nextMoveDir);
+			}
+			if ( nextType = 3) {
+				do snakeObject.dispose();
+				let snake[i] = SnakeKnee.new(x, y, nextDir, nextMoveDir);
+			}
+			if ( nextType = 4) {
+				do snakeObject.dispose();
+				let snake[i] = SnakeTail.new(x, y, nextDir, nextMoveDir);
+			}
+
+			/**
+			 * nextDir inherets nextMoveDir of the parent snake object.
+			 * nextMoveDir inherets moveDirection of the parent snake object.
+			 */
+			let nextDir = nextMoveDir;
+			let nextMoveDir = moveDirection;
+			let i = i + 1; // while loop control
+		} // while
+
+		/**
+		 * After reconstructing the snake, generate a new Apple.
+		 */
+		if (eatsApple) {
+			let flag = false;
+			while (~flag) {
+				do Apple.suggestLocation();
+				if (~inLocation(Apple.getX(), Apple.getY())) {
+					let flag = true;
+					do Apple.draw();
+				}
+				
+			}
+		}
+		return true;
+	}
+
+	method void incLength() {
+		return;
+	}
+
+	/**
+	 * Checks the validity of the specified location
+	 *  to be a location for a snake object.
+     */
+	method boolean checkLocation(int ax, int ay) {
+		if (((ax>0)&(ax<31)) & ((ay>0)&(ay<15)) & (~inLocation(ax, ay))) {
+			return true;
+		}
+		return false;
+	}
+}
+

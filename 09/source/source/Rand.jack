@@ -1,0 +1,18 @@
+
+/*
+  creates random numbers
+
+  I couldn't think of an algorithm to create a random algorithm without a timer
+  The timer will be used as seed value for a random number
+
+  Equation could be timer % max = random-number
+*/
+class Rand {
+
+  constructor Rand new() {
+
+
+    return this;
+  }
+
+}

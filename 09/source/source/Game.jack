@@ -1,0 +1,114 @@
+class Game {
+
+  field Snake square; // the square of this game
+  field int direction; // the square's current direction: 
+                        // 0=none, 1=up, 2=down, 3=left, 4=right
+
+  field Food food; // food instance
+  field Col col; // collision detection
+  field int score; // show score in the game
+
+   /** Constructs a new Square Game. */
+   constructor Game new() {
+      // Creates a 30 by 30 pixels square and positions it at the top-left
+      // of the screen.
+      let square = Snake.new(10, 128, 30);
+
+      // initial state is no movement
+      let direction = 0;  
+
+      // creates food instance
+      let food = Food.new(128,128);
+      
+      // set up collision detection
+      let col = Col.new(square, food);
+
+      let score = 0;
+      do showScore();
+
+      return this;
+   }
+
+   /** Disposes this game. */
+   method void dispose() {
+      do square.dispose();
+      do food.dispose();
+      do col.dispose();
+      do Memory.deAlloc(this);
+      return;
+   }
+
+   /** Moves the square in the current direction. */
+   method void moveSquare() {
+      do inGame();
+      if (direction = 1) { do square.moveUp(); }
+      if (direction = 2) { do square.moveDown(); }
+      if (direction = 3) { do square.moveLeft(); }
+      if (direction = 4) { do square.moveRight(); }
+      do Sys.wait(5);  // delays the next movement
+      return;
+   }
+
+  // when a user starts playing
+   method void inGame() {
+ 
+     do food.draw();
+     
+     if (col.has_collided()) {
+       do food.undraw();
+       do updateScore();
+       do showScore();
+       do updateFoodLocation(); 
+      }
+      return;
+   }
+
+   method void showScore() {
+     do Output.moveCursor(0,0);
+     do Output.println();
+     do Output.printString("SCORE: ");
+     do Output.printInt(score);
+     return;
+   }
+
+   method void updateScore() {
+     let score = score + 1;
+     return;
+   }
+
+   method void updateFoodLocation() {
+     // constant values for now because
+     // I couldn't find a way to generate random numbers
+     do food.newXPos(400);
+     do food.newYPos(200);
+     return;
+   }
+
+   /** Runs the game: handles the user's inputs and moves the square accordingly */
+   method void run() {
+      var char key;  // the key currently pressed by the user
+      var boolean exit;
+      let exit = false;
+      
+      while (~exit) {
+
+
+         // waits for a key to be pressed
+         while (key = 0) {
+            let key = Keyboard.keyPressed();
+            do moveSquare();
+         }
+         if (key = 131) { let direction = 1; }   // up arrow
+         if (key = 133) { let direction = 2; }   // down arrow
+         if (key = 130) { let direction = 3; }   // left arrow
+         if (key = 132) { let direction = 4; }   // right arrow
+
+         // waits for the key to be released
+         while (~(key = 0)) {
+            let key = Keyboard.keyPressed();
+            do moveSquare();
+         }
+     } // while
+     return;
+   }
+}

@@ -1,0 +1,81 @@
+
+/**
+ * This class implements the Apple object as A static class
+ */
+class Apple {
+
+	static int x, y;
+
+	function void suggestLocation() {
+		let x = Random.randInRange(1, 31);
+		let y = Random.randInRange(1, 14);
+		return;
+	}
+
+	function void init(int ax, int ay) {
+		let x = ax;
+		let y = ay;
+		do Apple.draw();
+		return;
+	}
+
+	function int getX() {
+		return x;
+	}
+
+	function int getY() {
+		return y;
+	}
+
+	function int getLocation() {
+		return x + (512 * y);
+	}
+	
+	// Draws this Apple on the screen
+	function void draw() {
+		var int memAddress;
+
+		let memAddress = 16384+Apple.getLocation();
+		do Memory.poke(memAddress+0, 2048);
+		do Memory.poke(memAddress+32, 1024);
+		do Memory.poke(memAddress+64, 512);
+		do Memory.poke(memAddress+96, 256);
+		do Memory.poke(memAddress+128, 1632);
+		do Memory.poke(memAddress+160, 2448);
+		do Memory.poke(memAddress+192, 4104);
+		do Memory.poke(memAddress+224, 8196);
+		do Memory.poke(memAddress+256, 16386);
+		do Memory.poke(memAddress+288, -32767);
+		do Memory.poke(memAddress+320, -32767);
+		do Memory.poke(memAddress+352, 16386);
+		do Memory.poke(memAddress+384, 8196);
+		do Memory.poke(memAddress+416, 4104);
+		do Memory.poke(memAddress+448, 2448);
+		do Memory.poke(memAddress+480, 1632);
+		return;
+	}
+
+	// Erases this Apple from the screen
+	function void erase() {
+		var int memAddress;
+		let memAddress = 16384+Apple.getLocation();
+		do Memory.poke(memAddress+0, 0);
+		do Memory.poke(memAddress+32, 0);
+		do Memory.poke(memAddress+64, 0);
+		do Memory.poke(memAddress+96, 0);
+		do Memory.poke(memAddress+128, 0);
+		do Memory.poke(memAddress+160, 0);
+		do Memory.poke(memAddress+192, 0);
+		do Memory.poke(memAddress+224, 0);
+		do Memory.poke(memAddress+256, 0);
+		do Memory.poke(memAddress+288, 0);
+		do Memory.poke(memAddress+320, 0);
+		do Memory.poke(memAddress+352, 0);
+		do Memory.poke(memAddress+384, 0);
+		do Memory.poke(memAddress+416, 0);
+		do Memory.poke(memAddress+448, 0);
+		do Memory.poke(memAddress+480, 0);
+		return;
+	}
+}
+

@@ -1,0 +1,171 @@
+class SnakeHead {
+
+	field int x, y; // the location of this object on the screen
+	field int type; // type of this object (1:head, 2:body, 3:knee, 4:tail)
+	field int direction; // current direction of this object
+	field int moveDirection;
+
+	constructor SnakeHead new(int ax, int ay, int d, int md) {
+		let x = ax;
+		let y = ay;
+		let type = 1;
+		let direction = d;
+		let moveDirection = md;
+		do draw();
+		return this;
+	}
+
+	method void dispose() {
+		do erase();
+		do Memory.deAlloc(this);
+		return;
+	}
+
+	method void draw() {
+		if (direction = 1) {
+			do drawSnakeHeadRight();
+		}
+		if (direction = 2) {
+			do drawSnakeHeadDown();
+		}
+		if (direction = 3) {
+			do drawSnakeHeadLeft();
+		}
+		if (direction = 4) {
+			do drawSnakeHeadUp();
+		}
+		return;
+	}
+
+	method int getLocation() {
+		return x + (y * 512);
+	}
+
+	method int getX() {
+		return x;
+	}
+
+	method int getY() {
+		return y;
+	}
+
+	method int getType() {
+		return type;
+	}
+	
+	method int getDirection() {
+		return direction;
+	}
+
+	method int getMoveDirection() {
+		return moveDirection;
+	}
+
+	method void drawSnakeHeadRight() {
+		var int memAddress;
+		let memAddress = 16384+getLocation();
+		do Memory.poke(memAddress+0, 0);
+		do Memory.poke(memAddress+32, -16384);
+		do Memory.poke(memAddress+64, 8192);
+		do Memory.poke(memAddress+96, 4096);
+		do Memory.poke(memAddress+128, 2048);
+		do Memory.poke(memAddress+160, 1024);
+		do Memory.poke(memAddress+192, 682);
+		do Memory.poke(memAddress+224, 1023);
+		do Memory.poke(memAddress+256, 1023);
+		do Memory.poke(memAddress+288, 682);
+		do Memory.poke(memAddress+320, 1024);
+		do Memory.poke(memAddress+352, 2048);
+		do Memory.poke(memAddress+384, 4096);
+		do Memory.poke(memAddress+416, 8192);
+		do Memory.poke(memAddress+448, -16384);
+		do Memory.poke(memAddress+480, 0);
+		return;
+	}
+	method void drawSnakeHeadDown() {
+		var int memAddress;
+		let memAddress = 16384+getLocation();
+		do Memory.poke(memAddress+0, 384);
+		do Memory.poke(memAddress+32, 960);
+		do Memory.poke(memAddress+64, 384);
+		do Memory.poke(memAddress+96, 960);
+		do Memory.poke(memAddress+128, 384);
+		do Memory.poke(memAddress+160, 960);
+		do Memory.poke(memAddress+192, 384);
+		do Memory.poke(memAddress+224, 960);
+		do Memory.poke(memAddress+256, 384);
+		do Memory.poke(memAddress+288, 960);
+		do Memory.poke(memAddress+320, 1056);
+		do Memory.poke(memAddress+352, 2064);
+		do Memory.poke(memAddress+384, 4104);
+		do Memory.poke(memAddress+416, 8196);
+		do Memory.poke(memAddress+448, 16386);
+		do Memory.poke(memAddress+480, 16386);
+		return;
+	}
+	method void drawSnakeHeadLeft() {
+		var int memAddress;
+		let memAddress = 16384+getLocation();
+		do Memory.poke(memAddress+0, 0);
+		do Memory.poke(memAddress+32, 3);
+		do Memory.poke(memAddress+64, 4);
+		do Memory.poke(memAddress+96, 8);
+		do Memory.poke(memAddress+128, 16);
+		do Memory.poke(memAddress+160, 32);
+		do Memory.poke(memAddress+192, 21824);
+		do Memory.poke(memAddress+224, -64);
+		do Memory.poke(memAddress+256, -64);
+		do Memory.poke(memAddress+288, 21824);
+		do Memory.poke(memAddress+320, 32);
+		do Memory.poke(memAddress+352, 16);
+		do Memory.poke(memAddress+384, 8);
+		do Memory.poke(memAddress+416, 4);
+		do Memory.poke(memAddress+448, 3);
+		do Memory.poke(memAddress+480, 0);
+		return;
+	}
+	method void drawSnakeHeadUp() {
+		var int memAddress;
+		let memAddress = 16384+getLocation();
+		do Memory.poke(memAddress+0, 16386);
+		do Memory.poke(memAddress+32, 16386);
+		do Memory.poke(memAddress+64, 8196);
+		do Memory.poke(memAddress+96, 4104);
+		do Memory.poke(memAddress+128, 2064);
+		do Memory.poke(memAddress+160, 1056);
+		do Memory.poke(memAddress+192, 960);
+		do Memory.poke(memAddress+224, 384);
+		do Memory.poke(memAddress+256, 960);
+		do Memory.poke(memAddress+288, 384);
+		do Memory.poke(memAddress+320, 960);
+		do Memory.poke(memAddress+352, 384);
+		do Memory.poke(memAddress+384, 960);
+		do Memory.poke(memAddress+416, 384);
+		do Memory.poke(memAddress+448, 960);
+		do Memory.poke(memAddress+480, 384);
+		return;
+	}
+
+	method void erase() {
+		var int memAddress;
+		let memAddress = 16384+getLocation();
+		do Memory.poke(memAddress+0, 0);
+		do Memory.poke(memAddress+32, 0);
+		do Memory.poke(memAddress+64, 0);
+		do Memory.poke(memAddress+96, 0);
+		do Memory.poke(memAddress+128, 0);
+		do Memory.poke(memAddress+160, 0);
+		do Memory.poke(memAddress+192, 0);
+		do Memory.poke(memAddress+224, 0);
+		do Memory.poke(memAddress+256, 0);
+		do Memory.poke(memAddress+288, 0);
+		do Memory.poke(memAddress+320, 0);
+		do Memory.poke(memAddress+352, 0);
+		do Memory.poke(memAddress+384, 0);
+		do Memory.poke(memAddress+416, 0);
+		do Memory.poke(memAddress+448, 0);
+		do Memory.poke(memAddress+480, 0);
+		return;
+	}
+}
+
